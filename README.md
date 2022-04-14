@@ -35,3 +35,48 @@ console.log(currentOS);
 - FS module - provides a way to interact with the file system
 - both async and sync methods are available
 - HTTP module - provides a way to interact with the HTTP protocol
+
+```js
+//just a basic server
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  res.write("welcome to our page");
+  res.end();
+});
+
+server.listen(3000);
+```
+
+- req.url - returns the url of the request
+- npx is package runner
+- why package.lock file?
+- force other user use the exact version of the package
+- semantically versioning - versioning that is based on the order of changes
+- major.minor.patch
+
+# Event loop
+
+- event loop allows node to perform non-blocking i/o operations- despite the fact htat js is single threaded
+- by offloading oprations to the
+  https://nodejs.dev/learn/the-nodejs-event-loop
+  https://www.youtube.com/watch?v=PNa9OMajw9w
+
+  - js read line by line
+
+```js
+console.log("first task");
+console.time();
+setTimeout(() => {
+  console.log("second task");
+}, 0);
+console.timeEnd();
+console.log("third task");
+```
+
+- in setInterval it will run every given time and it will run forever
+- in setTimeout it will run after given time and it will run only once
+
+- always try to setup assynchronous while making server / rest api routes
+
+-
