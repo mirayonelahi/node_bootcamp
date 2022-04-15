@@ -76,7 +76,6 @@ console.log("third task");
 
 - in setInterval it will run every given time and it will run forever
 - in setTimeout it will run after given time and it will run only once
-
 - always try to setup assynchronous while making server / rest api routes
 
 -
