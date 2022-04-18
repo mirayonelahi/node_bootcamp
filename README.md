@@ -12,6 +12,8 @@
 - built in modules in node.js- OS, PATH, FS , HTTP
 - OS module - provides a way to interact with the operating system
 
+- create your own module by using `exports.functionName = function(){}`
+
 ```js
 const os = require("os");
 
@@ -78,4 +80,10 @@ console.log("third task");
 - in setTimeout it will run after given time and it will run only once
 - always try to setup assynchronous while making server / rest api routes
 
--
+# Status codes
+
+100 range - informational
+200 range - success
+300 range - redirect
+400 range - client error
+500 range - server error
