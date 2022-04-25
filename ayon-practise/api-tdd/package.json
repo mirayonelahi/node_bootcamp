@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "test" : "jest --watchAll"
+    "start": "nodemon ./bin/www",
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
