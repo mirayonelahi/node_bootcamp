@@ -1,0 +1,13 @@
+{
+  "posts": [
+    {
+      "author": "Jon Abbott",
+      "authorId": 4,
+      "id": 95,
+      "likes": 985,
+      "popularity": 0.42,
+      "reads": 55875,
+      "tags": ["politics", "tech", "health", "history"]
+    }
+  ]
+}
