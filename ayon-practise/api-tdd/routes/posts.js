@@ -28,12 +28,12 @@ router.get("/", async function (req, res, next) {
 
       data.push(...uniquePosts);
     });
-    return data.sort((a, b) => a.id - b.id);
+    return data;
   };
 
   const finalData = await getUniqueData();
 
-  const sortByOptions = ["reads", "likes", "popularity", "", undefined];
+  const sortByOptions = ["id", "reads", "likes", "popularity", "", undefined];
   const directionOptions = ["asc", "desc", "", undefined];
 
   if (sortByOptions.indexOf(sortBy) === -1) {
@@ -62,7 +62,9 @@ router.get("/", async function (req, res, next) {
           : finalData.sort((a, b) => b.popularity - a.popularity);
         break;
       default:
-        direction === "asc" ? finalData : finalData.sort((a, b) => b.id - a.id);
+        direction === "asc"
+          ? finalData.sort((a, b) => a.id - b.id)
+          : finalData.sort((a, b) => b.id - a.id);
     }
   }
 
