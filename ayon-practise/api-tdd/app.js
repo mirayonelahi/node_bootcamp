@@ -1,3 +1,8 @@
+// TODO: parallel api call
+// TODO: Ful test coverage
+// TODO: reduce the number of calls to the api
+// TODO: server side cache to our API.
+
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");

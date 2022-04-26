@@ -15,6 +15,11 @@ const axios = require("axios").default;
 //     },
 //   ],
 // };
+
+const errorInfo = {
+  error: "sortBy parameter is invalid",
+};
+
 async function getUser(tag) {
   const url = `https://api.hatchways.io/assessment/blog/posts?tag=${tag}`;
   try {
@@ -27,8 +32,10 @@ async function getUser(tag) {
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
-  //fetch data from api
   const tag = req.query.tag;
+  if (!tag) {
+    return res.status(400).send(errorInfo);
+  }
   const data = getUser(tag);
 
   data.then((response) => {

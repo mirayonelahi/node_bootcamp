@@ -6,6 +6,9 @@
     "start": "nodemon ./bin/www",
     "test": "jest --watchAll"
   },
+  "jest": {
+    "collectCoverage": true
+  },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
