@@ -13,6 +13,7 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
+    "axios": "^0.27.0",
     "jest": "^28.0.0",
     "supertest": "^6.2.2"
   }
