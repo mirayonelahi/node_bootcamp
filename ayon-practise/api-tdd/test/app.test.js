@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("./app");
+const app = require("../app");
 
 describe("my awesome tests", () => {
   it("api/ping -> returns json with success: true", () => {
@@ -32,7 +32,7 @@ describe("my awesome tests", () => {
 
   it("/api/posts?tag=tech -> returns json with posts", () => {
     return request(app)
-      .get("/api/posts?tag=tech")
+      .get("/api/posts?tags=tech")
       .expect("Content-Type", /json/)
       .expect(200)
       .then((response) => {
