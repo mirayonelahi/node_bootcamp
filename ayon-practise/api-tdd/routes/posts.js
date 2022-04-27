@@ -2,15 +2,23 @@ var express = require("express");
 var router = express.Router();
 const axios = require("axios").default;
 
+// saving all error messages in a variable
 const errorInfo = {
   tag: { error: "Tags parameter is required" },
   sortBy: { error: "sortBy parameter is invalid" },
   direction: { error: "direction parameter is invalid" },
 };
+
+// seeting up all the logics for /api/posts with multiple query parameters
 router.get("/", async function (req, res) {
+  // getting all the query parameters
   const { tags, sortBy, direction } = req.query;
+
+  // setting all possible valid parameters for sortBy and direction
   const sortByOptions = ["id", "reads", "likes", "popularity", "", undefined];
   const directionOptions = ["asc", "desc", "", undefined];
+
+  // if any invalid response is received we send the error message
 
   if (sortByOptions.indexOf(sortBy) === -1) {
     return res.status(400).send(errorInfo.sortBy);
@@ -22,6 +30,8 @@ router.get("/", async function (req, res) {
   if (!tags) {
     return res.status(400).send(errorInfo.tag);
   }
+
+  // make the string of tags to an array
   const allTag = tags.split(",");
 
   // fetching all tags from the api
@@ -33,6 +43,7 @@ router.get("/", async function (req, res) {
     // making parallel or concurrent api call
     const result = await Promise.all(requests);
     let data = [];
+    // after making all concurrent api call and getting the responses and filter the data to get unique data
     result.map((response) => {
       const { posts } = response.data;
       const uniquePosts = posts.filter((post) => {
@@ -70,7 +81,7 @@ router.get("/", async function (req, res) {
     }
   }
 
-  return res.send({ posts: finalData });
+  return res.status(200).send({ posts: finalData });
 });
 
 module.exports = router;
