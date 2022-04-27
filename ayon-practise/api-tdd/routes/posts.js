@@ -1,23 +1,36 @@
 var express = require("express");
 var router = express.Router();
 const axios = require("axios").default;
-const errorInfo = {
-  error: "Tags parameter is required",
-};
 
-/* GET users listing. */
-router.get("/", async function (req, res, next) {
+const errorInfo = {
+  tag: { error: "Tags parameter is required" },
+  sortBy: { error: "sortBy parameter is invalid" },
+  direction: { error: "direction parameter is invalid" },
+};
+router.get("/", async function (req, res) {
   const { tags, sortBy, direction } = req.query;
+  const sortByOptions = ["id", "reads", "likes", "popularity", "", undefined];
+  const directionOptions = ["asc", "desc", "", undefined];
+
+  if (sortByOptions.indexOf(sortBy) === -1) {
+    return res.status(400).send(errorInfo.sortBy);
+  }
+
+  if (directionOptions.indexOf(direction) === -1) {
+    return res.status(400).send(errorInfo.direction);
+  }
   if (!tags) {
-    return res.status(400).send(errorInfo);
+    return res.status(400).send(errorInfo.tag);
   }
   const allTag = tags.split(",");
 
+  // fetching all tags from the api
   const requests = allTag.map((tag) =>
     axios.get(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}`)
   );
 
   const getUniqueData = async () => {
+    // making parallel or concurrent api call
     const result = await Promise.all(requests);
     let data = [];
     result.map((response) => {
@@ -32,17 +45,6 @@ router.get("/", async function (req, res, next) {
   };
 
   const finalData = await getUniqueData();
-
-  const sortByOptions = ["id", "reads", "likes", "popularity", "", undefined];
-  const directionOptions = ["asc", "desc", "", undefined];
-
-  if (sortByOptions.indexOf(sortBy) === -1) {
-    return res.status(400).send({ error: "sortBy parameter is invalid" });
-  }
-
-  if (directionOptions.indexOf(direction) === -1) {
-    return res.status(400).send({ error: "direction parameter is invalid" });
-  }
 
   if (sortBy) {
     switch (sortBy) {
