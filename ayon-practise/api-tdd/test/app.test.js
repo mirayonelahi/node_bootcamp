@@ -1,5 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
+const axios = require("axios");
 
 describe("Api testing", () => {
   it("api/ping -> returns json with success: true", () => {
@@ -357,5 +358,55 @@ describe("Api testing", () => {
           })
         );
       });
+  });
+
+  // in below we compare with our working api with the solution api given by hatchways to check that all different cases are working
+  it("compare with the solution api with our api multiple tags sort by id and desc", async () => {
+    const solutionURL =
+      "https://api.hatchways.io/assessment/solution/posts?tags=history,tech&sortBy=id&direction=desc";
+
+    const myUrl =
+      "http://localhost:3000/api/posts?tags=history,tech&sortBy=id&direction=desc";
+
+    const solutionApi = await axios.get(solutionURL);
+    const myApi = await axios.get(myUrl);
+
+    expect(solutionApi.data).toEqual(myApi.data);
+  });
+
+  it("compare with the solution api with our api multiple tags sort by likes and asc ", async () => {
+    const solutionURL =
+      "https://api.hatchways.io/assessment/solution/posts?tags=health,design&sortBy=likes&direction=asc";
+
+    const myUrl =
+      "http://localhost:3000/api/posts?tags=health,design&sortBy=likes&direction=asc";
+
+    const solutionApi = await axios.get(solutionURL);
+    const myApi = await axios.get(myUrl);
+    expect(solutionApi.data).toStrictEqual(myApi.data);
+  });
+
+  it("compare with the solution api with our api with tags sort by popularity and desc ", async () => {
+    const solutionURL =
+      "https://api.hatchways.io/assessment/solution/posts?tags=tech&sortBy=popularity&direction=desc";
+
+    const myUrl =
+      "http://localhost:3000/api/posts?tags=tech&sortBy=popularity&direction=desc";
+
+    const solutionApi = await axios.get(solutionURL);
+    const myApi = await axios.get(myUrl);
+    expect(solutionApi.data).toStrictEqual(myApi.data);
+  });
+
+  it("compare with the solution api with our api with multiple tags sort by reads and desc ", async () => {
+    const solutionURL =
+      "https://api.hatchways.io/assessment/solution/posts?tags=health,culture&sortBy=reads&direction=desc";
+
+    const myUrl =
+      "http://localhost:3000/api/posts?tags=health,culture&sortBy=reads&direction=desc";
+
+    const solutionApi = await axios.get(solutionURL);
+    const myApi = await axios.get(myUrl);
+    expect(solutionApi.data).toStrictEqual(myApi.data);
   });
 });

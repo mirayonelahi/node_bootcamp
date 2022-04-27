@@ -28,6 +28,8 @@ yarn test
 
 ### Api endpoints
 
+- port 3000 is used so the root url is http://localhost:3000
+
 #### route 1
 
 `api/ping` - Get
@@ -49,3 +51,5 @@ responds with json
   - tags: string - required - example: tech,history,culture
   - sortBy: string - not required - default: 'id' - example: likes, reads
   - direction: string - not required - default: 'asc' - example: desc,asc
+
+### Code Explanation

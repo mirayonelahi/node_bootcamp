@@ -9,7 +9,9 @@ const errorInfo = {
   direction: { error: "direction parameter is invalid" },
 };
 
-// seeting up all the logics for /api/posts with multiple query parameters
+const URL = "https://api.hatchways.io/assessment/blog/posts?tag=";
+
+// setting up all the logics for /api/posts with multiple query parameters
 router.get("/", async function (req, res) {
   // getting all the query parameters
   const { tags, sortBy, direction } = req.query;
@@ -35,9 +37,7 @@ router.get("/", async function (req, res) {
   const allTag = tags.split(",");
 
   // fetching all tags from the api
-  const requests = allTag.map((tag) =>
-    axios.get(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}`)
-  );
+  const requests = allTag.map((tag) => axios.get(URL + tag));
 
   const getUniqueData = async () => {
     // making parallel or concurrent api call
